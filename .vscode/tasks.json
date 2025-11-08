@@ -1,0 +1,72 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe arquivo de build ativo",
+            "command": "C:/mingw64/bin/g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/src/*.cpp",
+                "-o",
+                "${workspaceFolder}/main.exe",
+                "-Iinlude",
+                "-I",
+                "${workspaceFolder}/include",
+                "-I",
+                "C:/SFML-3.0.0",
+                "-I",
+                "C:/SFML-3.0.0/include",
+                "-I",
+                "C:/SFML-3.0.0/include/SFML-3.0.0",
+                "-L",
+                "C:/SFML-3.0.0/lib",
+                "-I",
+                "SFML-3.0.0/include",
+                "-L",
+                "SFML-3.0.0/lib",
+                "-lsfml-graphics",
+                "-lsfml-system",
+                "-lsfml-window",
+                "-lstdc++",
+                "-std=c++17"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "PATH": "${workspaceFolder};${workspaceFolder}/include;${workspaceFolder}/include/box2d;C:/SFML-3.0.0;C:/SFML-3.0.0/include;C:/SFML-3.0.0/include/SFML-3.0.0;C:/SFML-3.0.0/bin;C:/SFML-3.0.0/lib;C:/mingw64/bin;C:/mingw64/x86_64-w64-mingw32/lib;${env:PATH}"
+                }
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Tarefa gerada pelo Depurador."
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: cl.exe build active file",
+            "command": "cl.exe",
+            "args": [
+                "/Zi",
+                "/EHsc",
+                "/nologo",
+                "/Fe${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${file}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$msCompile"
+            ],
+            "group": "build",
+            "detail": "compiler: cl.exe"
+        }
+    ]
+}
