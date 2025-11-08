@@ -3,40 +3,43 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: g++.exe arquivo de build ativo",
+            "label": "Build FACE Game",
             "command": "C:/mingw64/bin/g++.exe",
             "args": [
-                "-fdiagnostics-color=always",
+                "-std=c++17",
                 "-g",
+                // Source files
                 "${workspaceFolder}/main.cpp",
-                "${workspaceFolder}/src/*.cpp",
+                "${workspaceFolder}/src/Core/Game.cpp",
+                "${workspaceFolder}/src/Core/SceneManager.cpp",
+                "${workspaceFolder}/src/Scenes/MenuScene.cpp",
+                "${workspaceFolder}/src/Scenes/QuizScene.cpp",
+                "${workspaceFolder}/src/Scenes/FaceScene.cpp",
+                "${workspaceFolder}/src/Utils/FontManager.cpp",
+                // Output
                 "-o",
-                "${workspaceFolder}/main.exe",
-                "-Iinlude",
+                "${workspaceFolder}/face-game.exe",
+                // Include paths
                 "-I",
                 "${workspaceFolder}/include",
                 "-I",
-                "C:/SFML-3.0.0",
-                "-I",
                 "C:/SFML-3.0.0/include",
-                "-I",
-                "C:/SFML-3.0.0/include/SFML-3.0.0",
+                // Library paths
                 "-L",
                 "C:/SFML-3.0.0/lib",
-                "-I",
-                "SFML-3.0.0/include",
-                "-L",
-                "SFML-3.0.0/lib",
+                // Libraries
                 "-lsfml-graphics",
-                "-lsfml-system",
                 "-lsfml-window",
-                "-lstdc++",
-                "-std=c++17"
+                "-lsfml-system",
+                // Optimization and warnings
+                "-O2",
+                "-Wall",
+                "-Wextra"
             ],
             "options": {
                 "cwd": "${workspaceFolder}",
                 "env": {
-                    "PATH": "${workspaceFolder};${workspaceFolder}/include;${workspaceFolder}/include/box2d;C:/SFML-3.0.0;C:/SFML-3.0.0/include;C:/SFML-3.0.0/include/SFML-3.0.0;C:/SFML-3.0.0/bin;C:/SFML-3.0.0/lib;C:/mingw64/bin;C:/mingw64/x86_64-w64-mingw32/lib;${env:PATH}"
+                    "PATH": "C:/SFML-3.0.0/bin;C:/mingw64/bin;${env:PATH}"
                 }
             },
             "problemMatcher": [
@@ -46,27 +49,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "Tarefa gerada pelo Depurador."
-        },
-        {
-            "type": "cppbuild",
-            "label": "C/C++: cl.exe build active file",
-            "command": "cl.exe",
-            "args": [
-                "/Zi",
-                "/EHsc",
-                "/nologo",
-                "/Fe${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "${file}"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$msCompile"
-            ],
-            "group": "build",
-            "detail": "compiler: cl.exe"
+            "detail": "Compilador configurado para FACE Game"
         }
     ]
 }

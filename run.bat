@@ -1,4 +1,0 @@
-@ECHO OFF&&MODE 60, 10&&TITLE Variaveis de ambiente carregadas...
-SET PATH=%PATH%;%CD%;%CD%\include;%CD%\include\box2d;C:\SFML-3.0.0;C:\SFML-3.0.0\include;C:\SFML-3.0.0\include\SFML-3.0.0;C:\SFML-3.0.0\bin;C:\SFML-3.0.0\lib;C:\mingw64\bin;C:\mingw64\x86_64-w64-mingw32\bin
-.\main.exe
-PAUSE

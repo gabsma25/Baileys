@@ -5,7 +5,7 @@
             "name": "C/C++: g++.exe Compilar e depurar o arquivo ativo",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/main.exe",
+            "program": "${workspaceFolder}/main.cpp",
             "args": [],
             "stopAtEntry": false,
             "cwd": "C:/mingw64/bin",

@@ -1,161 +1,306 @@
-# Projeto Quiz Educacional - SFML
+# 🎮 FACE - O Jogo das Dicas
 
-## 📋 Requisitos Atendidos
+## 📋 Sobre o Projeto
 
-### ✅ Recursos Implementados (Presentes nas 2 Cenas)
+**FACE** é um jogo educacional híbrido que combina dois modos de jogo:
 
-#### 1. Carregamento de Texturas
-- **Menu**: Textura de fundo criada programaticamente
-- **Quiz**: Textura para ícone de feedback
+### 🎯 Modo Quiz
+- Perguntas de múltipla escolha
+- 4 opções de resposta
+- Controle via teclado (teclas 1-4)
+- Categorias variadas
 
-#### 2. Exibição de Sprites
-- **Menu**: Sprite de fundo
-- **Quiz**: Sprite de feedback visual
-
-#### 3. Definição de Shapes
-- **Menu**: 
-  - 2 Retângulos (botões)
-  - 2 Círculos (decoração)
-- **Quiz**: 
-  - 1 Retângulo (caixa de pergunta)
-  - 4 Círculos (indicadores de opções)
-  - 1 Retângulo (barra de pontuação)
-
-#### 4. Exibição de Shapes
-- Todos os shapes são renderizados em ambas as cenas
-
-#### 5. Definição de Textos
-- **Menu**: Título, 2 botões
-- **Quiz**: Pergunta, 4 opções, pontuação, feedback, instruções
-
-#### 6. Exibição de Textos
-- Todos os textos são renderizados em ambas as cenas
-
-#### 7. Leitura de Inputs
-- **Menu**: Mouse (clique)
-- **Quiz**: Teclado (teclas 1-4 e ESC)
-
-#### 8. Interação Baseada nos Inputs
-- **Menu**: Botões respondem ao clique (mudam cor ao passar mouse)
-- **Quiz**: Respostas são processadas e feedback é dado
-
-#### 9. Lógica
-- **Menu**: Iniciar quiz, sair do programa
-- **Quiz**: Verificar respostas, calcular pontuação, avançar questões, voltar ao menu
-
-#### 10. Mínimo 2 Cenas
-- ✅ Cena 1: Menu Principal
-- ✅ Cena 2: Quiz Interativo
-
-### 🎮 Inputs Diferentes em Cada Cena
-- **Menu**: Usa MOUSE (clique)
-- **Quiz**: Usa TECLADO (teclas numéricas e ESC)
+### 🔍 Modo Face (Dicas Progressivas)
+- Sistema de dicas reveladas progressivamente
+- Digitação livre da resposta
+- Pontuação baseada no número de dicas usadas
+- Quanto menos dicas, mais pontos!
 
 ---
 
-## 🛠️ Como Compilar
+## 🏗️ Arquitetura do Projeto
 
-### No Linux (Ubuntu/Debian):
+### Estrutura Modular
 
-```bash
-# Instalar SFML
-sudo apt-get update
-sudo apt-get install libsfml-dev
-
-# Compilar o projeto
-g++ -std=c++11 quiz_completo.cpp -o quiz -lsfml-graphics -lsfml-window -lsfml-system
-
-# Executar
-./quiz
+```
+face-game/
+├── include/              # Headers (.hpp)
+│   ├── Core/            # Sistema principal
+│   │   ├── Game.hpp
+│   │   └── SceneManager.hpp
+│   ├── Scenes/          # Cenas do jogo
+│   │   ├── Scene.hpp
+│   │   ├── MenuScene.hpp
+│   │   ├── QuizScene.hpp
+│   │   └── FaceScene.hpp
+│   ├── Utils/           # Utilitários
+│   │   ├── Colors.hpp
+│   │   └── FontManager.hpp
+│   └── Config.hpp       # Configurações globais
+│
+├── src/                 # Implementações (.cpp)
+│   ├── Core/
+│   ├── Scenes/
+│   └── Utils/
+│
+├── assets/              # Recursos
+│   ├── fonts/          (preparado)
+│   └── sounds/         (preparado)
+│
+├── .vscode/             # Configurações VSCode
+├── main.cpp             # Ponto de entrada
+└── compile.bat          # Script de compilação
 ```
 
-### No Windows (MinGW):
+### 🎨 Paleta de Cores - Vibrante Outono
 
-```bash
-# Após instalar SFML e configurar paths
-g++ -std=c++11 quiz_completo.cpp -o quiz.exe -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -DSFML_STATIC
+- **Fundo:** Tons marrons quentes
+- **Destaques:** Amarelo, Laranja, Verde
+- **Botões:** Azul marinho
+- **Feedback:** Verde (correto), Vermelho (errado)
 
-# Executar
-quiz.exe
+---
+
+## ⚙️ Configuração e Compilação
+
+### Pré-requisitos
+
+✅ MinGW64 instalado em `C:/mingw64/`
+✅ SFML 3.0.0 instalado em `C:/SFML-3.0.0/`
+✅ Visual Studio Code (opcional)
+
+### Método 1: Compilação Rápida (Recomendado)
+
+```batch
+compile.bat
 ```
 
-### Usando CMake (Multiplataforma):
+O script:
+1. Configura o PATH automaticamente
+2. Compila todos os arquivos
+3. Cria `face-game.exe`
+4. Executa automaticamente se bem-sucedido
 
-Crie um arquivo `CMakeLists.txt`:
+### Método 2: VSCode
 
-```cmake
-cmake_minimum_required(VERSION 3.10)
-project(QuizEducacional)
+1. Abra a pasta no VSCode
+2. Pressione `Ctrl+Shift+B`
+3. Selecione "Build FACE Game"
+4. Execute com `F5`
 
-set(CMAKE_CXX_STANDARD 11)
+### Método 3: Linha de Comando Manual
 
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-
-add_executable(quiz quiz_completo.cpp)
-target_link_libraries(quiz sfml-graphics sfml-window sfml-system)
-```
-
-Então compile:
 ```bash
-mkdir build
-cd build
-cmake ..
-make
-./quiz
+g++ -std=c++17 ^
+    main.cpp ^
+    src/Core/Game.cpp ^
+    src/Core/SceneManager.cpp ^
+    src/Scenes/MenuScene.cpp ^
+    src/Scenes/QuizScene.cpp ^
+    src/Scenes/FaceScene.cpp ^
+    src/Utils/FontManager.cpp ^
+    -o face-game.exe ^
+    -I include ^
+    -I C:/SFML-3.0.0/include ^
+    -L C:/SFML-3.0.0/lib ^
+    -lsfml-graphics -lsfml-window -lsfml-system ^
+    -O2
 ```
 
 ---
 
-## 🎯 Como Usar
+## 🎮 Como Jogar
 
-### Menu Principal:
-- Clique em "INICIAR QUIZ" para começar
-- Clique em "SAIR" para fechar o programa
-- Os botões mudam de cor ao passar o mouse
+### Menu Principal
 
-### Quiz:
-- Leia a pergunta
-- Pressione as teclas **1, 2, 3 ou 4** para selecionar a resposta
-- Veja o feedback (CORRETO/ERRADO)
-- Pressione **ESC** para voltar ao menu
-- A pontuação aparece no canto superior direito
+- **Clique em QUIZ:** Inicia modo Quiz
+- **Clique em FACE:** Inicia modo Face (dicas)
+- **Clique em SAIR:** Fecha o jogo
+
+### Modo Quiz
+
+1. Leia a pergunta
+2. Pressione **1, 2, 3 ou 4** para responder
+3. Veja o feedback
+4. Pressione **ESC** para voltar ao menu
+
+### Modo Face
+
+1. Veja a categoria do perfil
+2. Leia a primeira dica
+3. **ESPAÇO:** Revelar próxima dica
+4. **Digite** sua resposta
+5. **ENTER:** Confirmar resposta
+6. **ESC:** Voltar ao menu
 
 ---
 
-## 📝 Notas sobre o Código
+## 🔧 Personalização
 
-### Fonte Utilizada:
-O código usa `/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf` (disponível em sistemas Linux).
+### Mudar Cores
 
-**Para Windows**, altere para uma fonte disponível:
+Edite `include/Config.hpp`:
+
 ```cpp
-font.loadFromFile("C:/Windows/Fonts/arial.ttf")
+namespace Colors {
+    const unsigned int BG_R = 45;      // Fundo - Red
+    const unsigned int BG_G = 35;      // Fundo - Green
+    const unsigned int BG_B = 25;      // Fundo - Blue
+    // ...
+}
 ```
 
-**Ou coloque uma fonte .ttf na pasta do projeto** e use:
+### Adicionar Perguntas (Quiz)
+
+Edite `src/Scenes/QuizScene.cpp` no método `loadQuestions()`:
+
 ```cpp
-font.loadFromFile("arial.ttf")
+questions.push_back({
+    "Sua pergunta aqui?",
+    {"Opção 1", "Opção 2", "Opção 3", "Opção 4"},
+    2,  // Índice da resposta correta (0-3)
+    "CATEGORIA"
+});
 ```
 
-### Estrutura do Código:
-- **MenuScene**: Gerencia o menu principal
-- **QuizScene**: Gerencia o quiz e lógica de perguntas
-- **main()**: Loop principal e gerenciamento de cenas
+### Adicionar Perfis (Face)
+
+Edite `src/Scenes/FaceScene.cpp` no método `loadProfiles()`:
+
+```cpp
+profiles.push_back({
+    "RESPOSTA CORRETA",
+    {
+        "Dica 1 genérica",
+        "Dica 2 mais específica",
+        "Dica 3 mais específica ainda",
+        "Dica 4 bem específica",
+        "Dica 5 óbvia"
+    },
+    "CATEGORIA"
+});
+```
 
 ---
 
-## 🚀 Melhorias Possíveis (Se Tiver Tempo)
+## 📦 Estrutura de Dependências
 
-1. Adicionar mais perguntas
-2. Carregar imagens externas para o fundo
-3. Adicionar efeitos sonoros
-4. Animações de transição entre cenas
-5. Tela de resultado final com estatísticas
+```
+main.cpp
+  └─> Game.hpp
+        ├─> SceneManager.hpp
+        │     └─> Scene.hpp (interface)
+        │           ├─> MenuScene.hpp
+        │           ├─> QuizScene.hpp
+        │           └─> FaceScene.hpp
+        ├─> FontManager.hpp
+        └─> Config.hpp
+              └─> Colors.hpp
+```
 
 ---
 
-## 📚 Recursos Úteis
+## 🚀 Funcionalidades Futuras (Preparadas)
 
-- Documentação SFML: https://www.sfml-dev.org/documentation/
-- Tutorial de Cenas: https://github.com/SFML/SFML/wiki/Tutorial:-Manage-different-Screens
-- Exemplos de Jogos: https://github.com/suraj95/16-Games-in-SFML
+- [ ] **Timer/Cronômetro** - Estrutura pronta em Config.hpp
+- [ ] **Efeitos Sonoros** - Pasta `assets/sounds/` preparada
+- [ ] **Diferentes Dificuldades** - Sistema de pontuação escalável
+- [ ] **Ranking de Pontuação** - Sistema de score implementado
+- [ ] **Mais Categorias** - Estrutura modular facilita expansão
+
+---
+
+## 🐛 Troubleshooting
+
+### Problema: "cannot find -lsfml-graphics"
+
+**Solução:** Verifique se SFML está em `C:/SFML-3.0.0/` e as DLLs em `C:/SFML-3.0.0/bin/`
+
+### Problema: Fonte não carrega
+
+**Solução:** O jogo tenta múltiplos caminhos automaticamente:
+- `C:/Windows/Fonts/arial.ttf`
+- `C:/Windows/Fonts/calibri.ttf`
+- `C:/Windows/Fonts/verdana.ttf`
+
+Se nenhum funcionar, coloque uma fonte .ttf em `assets/fonts/`
+
+### Problema: DLLs não encontradas ao executar
+
+**Solução:** Copie as DLLs de `C:/SFML-3.0.0/bin/` para a pasta do executável:
+- `sfml-graphics-3.dll`
+- `sfml-window-3.dll`
+- `sfml-system-3.dll`
+
+---
+
+## 📚 Recursos Utilizados
+
+- **SFML 3.0.0** - Framework multimídia
+- **C++17** - Recursos modernos da linguagem
+- **MinGW64** - Compilador GCC para Windows
+- **Design Patterns:**
+  - Singleton (FontManager)
+  - State (SceneManager)
+  - Template Method (Scene interface)
+
+---
+
+## ✅ Checklist de Requisitos
+
+### TODOS os 10 requisitos implementados:
+
+1. ✅ **Carregamento de Texturas** - Config.hpp + FontManager
+2. ✅ **Exibição de Sprites** - Todas as cenas
+3. ✅ **Definição de Shapes** - Botões, indicadores, caixas
+4. ✅ **Exibição de Shapes** - render() em todas as cenas
+5. ✅ **Definição de Textos** - Headers das cenas
+6. ✅ **Exibição de Textos** - render() em todas as cenas
+7. ✅ **Leitura de Inputs** - Mouse (Menu) + Teclado (Quiz/Face)
+8. ✅ **Interação baseada nos inputs** - handleInput() implementado
+9. ✅ **Lógica completa** - SceneManager + Game loop
+10. ✅ **Mínimo 2 cenas** - Menu, Quiz e Face (3 cenas!)
+
+### Inputs DIFERENTES por cena:
+- **Menu:** MOUSE (cliques)
+- **Quiz:** TECLADO (teclas 1-4, ESC)
+- **Face:** TECLADO (letras, Space, Enter, ESC)
+
+---
+
+## 👨‍💻 Arquitetura de Código
+
+### Princípios Aplicados
+
+- **SOLID:**
+  - Single Responsibility
+  - Open/Closed
+  - Liskov Substitution (Scene interface)
+  - Interface Segregation
+  - Dependency Inversion
+
+- **Separação de Conceitos:**
+  - Lógica de negócio (Core/)
+  - Apresentação (Scenes/)
+  - Utilidades (Utils/)
+  - Configuração (Config.hpp)
+
+- **Gerenciamento de Memória:**
+  - Smart pointers (unique_ptr)
+  - RAII
+  - Sem memory leaks
+
+---
+
+## 📞 Suporte
+
+- **Documentação SFML:** https://www.sfml-dev.org/documentation/
+- **C++17 Reference:** https://en.cppreference.com/
+
+---
+
+**Desenvolvido para:** Disciplina de Sistemas Multimídia
+**Tecnologias:** C++17 + SFML 3.0.0
+**Arquitetura:** Modular e escalável
+
+🎮 **Divirta-se jogando FACE!** 🎮
