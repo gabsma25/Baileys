@@ -57,7 +57,17 @@ bool FontManager::loadFonts() {
     }
     
     // Fonte de título usa a mesma que bold
-    fonts[FontType::Title] = fonts[FontType::Bold];
+    // Tentar carregar fonte específica para título, se fornecida
+    std::vector<std::string> titlePaths = {
+        Config::FONT_TITLE_PATH,
+        Config::FONT_BOLD_PATH,
+        Config::FONT_PATH
+    };
+
+    if (!tryLoadFont(FontType::Title, titlePaths)) {
+        // Se não houver fonte específica para título, usar bold como fallback
+        fonts[FontType::Title] = fonts[FontType::Bold];
+    }
     
     fontsLoaded = true;
     std::cout << "[FontManager] Fontes carregadas com sucesso!" << std::endl;

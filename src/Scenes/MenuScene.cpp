@@ -1,5 +1,6 @@
 #include "Scenes/MenuScene.hpp"
 #include "Utils/FontManager.hpp"
+#include "Utils/Utf.hpp"
 #include "Utils/Colors.hpp"
 #include "Config.hpp"
 #include <cmath>
@@ -20,7 +21,7 @@ MenuScene::MenuScene()
 
 void MenuScene::setupTexts() {
     // Título principal
-    titleText.setString("FACE");
+    titleText.setString(Utf::toSf("FACE"));
     titleText.setCharacterSize(120);
     titleText.setFillColor(Colors::Yellow);
     titleText.setOutlineColor(Colors::Orange);
@@ -28,31 +29,31 @@ void MenuScene::setupTexts() {
     titleText.setPosition(sf::Vector2f(360.f, 80.f));
     
     // Subtítulo
-    subtitleText.setString("O Jogo das Dicas");
+    subtitleText.setString(Utf::toSf("O Jogo das Dicas"));
     subtitleText.setCharacterSize(32);
     subtitleText.setFillColor(Colors::Green);
     subtitleText.setPosition(sf::Vector2f(345.f, 200.f));
     
     // Botão Quiz
-    quizButtonText.setString("QUIZ");
+    quizButtonText.setString(Utf::toSf("QUIZ"));
     quizButtonText.setCharacterSize(36);
     quizButtonText.setFillColor(Colors::TextPrimary);
     quizButtonText.setPosition(sf::Vector2f(430.f, 305.f));
     
     // Botão Face
-    faceButtonText.setString("FACE");
+    faceButtonText.setString(Utf::toSf("FACE"));
     faceButtonText.setCharacterSize(36);
     faceButtonText.setFillColor(Colors::TextPrimary);
     faceButtonText.setPosition(sf::Vector2f(430.f, 415.f));
     
     // Botão Sair
-    exitButtonText.setString("SAIR");
+    exitButtonText.setString(Utf::toSf("SAIR"));
     exitButtonText.setCharacterSize(36);
     exitButtonText.setFillColor(Colors::TextPrimary);
     exitButtonText.setPosition(sf::Vector2f(445.f, 525.f));
     
     // Instrução
-    instructionText.setString("Clique para selecionar o modo de jogo");
+    instructionText.setString(Utf::toSf("Clique para selecionar o modo de jogo"));
     instructionText.setCharacterSize(20);
     instructionText.setFillColor(Colors::TextSecondary);
     instructionText.setPosition(sf::Vector2f(320.f, 640.f));

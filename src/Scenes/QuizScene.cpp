@@ -1,5 +1,6 @@
 #include "Scenes/QuizScene.hpp"
 #include "Utils/FontManager.hpp"
+#include "Utils/Utf.hpp"
 #include "Utils/Colors.hpp"
 #include "Config.hpp"
 #include <iostream>
@@ -143,7 +144,7 @@ void QuizScene::setupUI() {
 
 void QuizScene::updateDisplay() {
     // Atualizar score
-    scoreText.setString("Score: " + std::to_string(score) + "/" + std::to_string(totalQuestions));
+    scoreText.setString(Utf::toSf(std::string("Score: ") + std::to_string(score) + "/" + std::to_string(totalQuestions)));
     
     // Atualizar barra de progresso
     float progress = static_cast<float>(currentQuestion) / static_cast<float>(totalQuestions);
@@ -152,20 +153,20 @@ void QuizScene::updateDisplay() {
     if (currentQuestion < totalQuestions && !quizFinished) {
         // Atualizar pergunta atual
         const auto& q = questions[currentQuestion];
-        categoryText.setString("Categoria: " + q.category);
-        questionText.setString(q.question);
+        categoryText.setString(Utf::toSf(std::string("Categoria: ") + q.category));
+        questionText.setString(Utf::toSf(q.question));
         
         // Atualizar opções
         if (q.options.size() >= 4) {
-            option1Text.setString("1. " + q.options[0]);
-            option2Text.setString("2. " + q.options[1]);
-            option3Text.setString("3. " + q.options[2]);
-            option4Text.setString("4. " + q.options[3]);
+            option1Text.setString(Utf::toSf(std::string("1. ") + q.options[0]));
+            option2Text.setString(Utf::toSf(std::string("2. ") + q.options[1]));
+            option3Text.setString(Utf::toSf(std::string("3. ") + q.options[2]));
+            option4Text.setString(Utf::toSf(std::string("4. ") + q.options[3]));
         }
     } else if (quizFinished) {
-        resultText.setString("Quiz Finalizado!");
+        resultText.setString(Utf::toSf("Quiz Finalizado!"));
         resultText.setFillColor(Colors::Yellow);
-        feedbackText.setString("Score Final: " + std::to_string(score) + "/" + std::to_string(totalQuestions));
+        feedbackText.setString(Utf::toSf(std::string("Score Final: ") + std::to_string(score) + "/" + std::to_string(totalQuestions)));
         feedbackText.setFillColor(Colors::Green);
     }
 }

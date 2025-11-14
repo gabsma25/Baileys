@@ -4,6 +4,7 @@
 #include "Scenes/QuizScene.hpp"
 #include "Scenes/FaceScene.hpp"
 #include "Utils/FontManager.hpp"
+#include "Utils/Colors.hpp"
 #include "Config.hpp"
 #include <iostream>
 
@@ -164,7 +165,7 @@ void Game::update() {
 }
 
 void Game::render() {
-    window.clear(sf::Color(Config::Colors::BG_R, Config::Colors::BG_G, Config::Colors::BG_B));
+    window.clear(Colors::Background);
     
     if (sceneManager) {
         sceneManager->render(window);

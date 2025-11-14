@@ -1,5 +1,6 @@
 #include "Scenes/FaceScene.hpp"
 #include "Utils/FontManager.hpp"
+#include "Utils/Utf.hpp"
 #include "Utils/Colors.hpp"
 #include "Config.hpp"
 #include <iostream>
@@ -119,18 +120,18 @@ void FaceScene::setupUI() {
 }
 
 void FaceScene::updateDisplay() {
-    scoreText.setString("Score: " + std::to_string(score));
+    scoreText.setString(Utf::toSf(std::string("Score: ") + std::to_string(score)));
     
     if (currentProfile < static_cast<int>(profiles.size()) && !gameFinished) {
         const auto& profile = profiles[currentProfile];
-        categoryText.setString("Categoria: " + profile.category);
+        categoryText.setString(Utf::toSf(std::string("Categoria: ") + profile.category));
         
         // Mostrar dicas até a atual
         std::string cluesDisplay;
         for (int i = 0; i <= currentClue && i < static_cast<int>(profile.clues.size()); i++) {
             cluesDisplay += "Dica " + std::to_string(i + 1) + ": " + profile.clues[i] + "\n\n";
         }
-        cluesText.setString(cluesDisplay);
+        cluesText.setString(Utf::toSf(cluesDisplay));
         
         // Atualizar indicadores de dicas
         for (int i = 0; i < static_cast<int>(clueIndicators.size()); i++) {
@@ -142,10 +143,10 @@ void FaceScene::updateDisplay() {
         }
         
         // Atualizar texto de entrada
-        userInputText.setString(playerAnswer + (inputActive ? "_" : ""));
+        userInputText.setString(Utf::toSf(playerAnswer + (inputActive ? "_" : "")));
     } else if (gameFinished) {
-        cluesText.setString("Jogo Finalizado!");
-        feedbackText.setString("Score Final: " + std::to_string(score));
+        cluesText.setString(Utf::toSf("Jogo Finalizado!"));
+        feedbackText.setString(Utf::toSf(std::string("Score Final: ") + std::to_string(score)));
         feedbackText.setFillColor(Colors::Green);
     }
 }
@@ -165,7 +166,7 @@ SceneType FaceScene::handleInput(const sf::Event& event) {
     
     // Input de texto
     if (const auto* textEntered = event.getIf<sf::Event::TextEntered>()) {
-        if (inputActive && textEntered->unicode < 128) {
+            if (inputActive && textEntered->unicode < 128) {
             char c = static_cast<char>(textEntered->unicode);
             
             if (c == '\b' && !playerAnswer.empty()) {
