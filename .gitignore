@@ -1,0 +1,27 @@
+# Executáveis
+*.exe
+
+# DLLs (exceto se necessário)
+*.dll
+!libpq.dll
+
+# Arquivos de backup
+*.bak
+*.tmp
+*~
+
+# Visual Studio Code
+.vscode/
+!.vscode/tasks.json
+!.vscode/c_cpp_properties.json
+
+# Compilação
+*.o
+*.obj
+
+# Logs
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db

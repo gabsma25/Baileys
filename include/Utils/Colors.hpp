@@ -16,7 +16,7 @@ namespace Colors {
     // Destaques Principais
     inline const sf::Color Yellow(static_cast<uint8_t>(Config::Colors::HIGHLIGHT_ORANGE_R), static_cast<uint8_t>(Config::Colors::HIGHLIGHT_ORANGE_G), static_cast<uint8_t>(Config::Colors::HIGHLIGHT_ORANGE_B));
     inline const sf::Color Orange(static_cast<uint8_t>(Config::Colors::HIGHLIGHT_BURNED_R), static_cast<uint8_t>(Config::Colors::HIGHLIGHT_BURNED_G), static_cast<uint8_t>(Config::Colors::HIGHLIGHT_BURNED_B));
-    inline const sf::Color Green(static_cast<uint8_t>(Config::Colors::HIGHLIGHT_BRICK_R), static_cast<uint8_t>(Config::Colors::HIGHLIGHT_BRICK_G), static_cast<uint8_t>(Config::Colors::HIGHLIGHT_BRICK_B));
+    inline const sf::Color Green(80, 200, 120);
     
     // Botões
     inline const sf::Color Navy(static_cast<uint8_t>(Config::Colors::NAVY_R), static_cast<uint8_t>(Config::Colors::NAVY_G), static_cast<uint8_t>(Config::Colors::NAVY_B));
@@ -24,7 +24,7 @@ namespace Colors {
     inline const sf::Color NavyActive(70, 120, 180);
     
     // Feedback
-    inline const sf::Color Correct(100, 200, 100);
+    inline const sf::Color Correct(0, 250, 10);
     inline const sf::Color Wrong(220, 80, 80);
     inline const sf::Color Red = Wrong; // alias para consistência
     

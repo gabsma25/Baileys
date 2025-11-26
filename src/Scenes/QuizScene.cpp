@@ -24,20 +24,62 @@ QuizScene::QuizScene()
     , feedbackTimer(0.0f)
     , quizFinished(false) {
     
+    std::cout << "[QuizScene] Construtor iniciado" << std::endl;
+    
     // Carregar perguntas de exemplo
     loadQuestions();
+    
+    std::cout << "[QuizScene] setupUI..." << std::endl;
     setupUI();
+    
+    std::cout << "[QuizScene] Construtor completo" << std::endl;
 }
 
 void QuizScene::loadQuestions() {
-    // Adicionar perguntas de exemplo
-    questions = {
-        {"Qual é a capital do Brasil?", {"Rio de Janeiro", "São Paulo", "Brasília", "Salvador"}, 2, "Geografia"},
-        {"Quanto é 2 + 2?", {"3", "4", "5", "6"}, 1, "Matemática"},
-        {"Quem pintou a Mona Lisa?", {"Van Gogh", "Picasso", "Da Vinci", "Monet"}, 2, "Arte"},
-        {"Qual o maior planeta do sistema solar?", {"Terra", "Marte", "Júpiter", "Saturno"}, 2, "Ciência"}
-    };
-    
+    // Conectar ao banco de dados
+    if (!db.connect("localhost", "5432", "face_quiz_db", "postgres", "1234")) {
+        std::cerr << "[QuizScene] Erro ao conectar ao banco de dados. Usando perguntas de exemplo." << std::endl;
+        // Fallback: perguntas de exemplo
+        questions = {
+            {"Qual é a capital do Brasil?", {"Rio de Janeiro", "São Paulo", "Brasília", "Salvador"}, 2, "Geografia"},
+            {"Quanto é 2 + 2?", {"3", "4", "5", "6"}, 1, "Matemática"},
+            {"Quem pintou a Mona Lisa?", {"Van Gogh", "Picasso", "Da Vinci", "Monet"}, 2, "Arte"},
+            {"Qual o maior planeta do sistema solar?", {"Terra", "Marte", "Júpiter", "Saturno"}, 2, "Ciência"}
+        };
+    } else {
+        // Carregar questões aleatórias do banco (10 questões)
+        auto questoesDB = db.getQuestoesAleatorias(10, true);
+
+        if (questoesDB.empty()) {
+            std::cerr << "[QuizScene] Nenhuma questão encontrada no banco. Usando perguntas de exemplo." << std::endl;
+            questions = {
+                {"Qual é a capital do Brasil?", {"Rio de Janeiro", "São Paulo", "Brasília", "Salvador"}, 2, "Geografia"},
+                {"Quanto é 2 + 2?", {"3", "4", "5", "6"}, 1, "Matemática"}
+            };
+        } else {
+            // Converter questões do banco para formato da cena
+            for (const auto& q : questoesDB) {
+                if (q.alternativas.size() >= 4) {
+                    Question question;
+                    question.question = q.pergunta;
+                    question.category = q.categoria_nome;
+                    question.options.clear();
+                    
+                    int correctIndex = 0;
+                    for (size_t i = 0; i < q.alternativas.size() && i < 4; i++) {
+                        question.options.push_back(q.alternativas[i].texto);
+                        if (q.alternativas[i].correta) {
+                            correctIndex = static_cast<int>(i);
+                        }
+                    }
+                    question.correctAnswer = correctIndex;
+                    questions.push_back(question);
+                }
+            }
+            std::cout << "[QuizScene] Carregadas " << questions.size() << " questões do banco de dados." << std::endl;
+        }
+    }
+
     totalQuestions = static_cast<int>(questions.size());
 }
 
@@ -45,16 +87,16 @@ void QuizScene::setupUI() {
     auto& fontManager = FontManager::getInstance();
     
     // Categoria
-    categoryText = sf::Text(fontManager.getFont(FontManager::FontType::Regular));
-    categoryText.setCharacterSize(20);
-    categoryText.setFillColor(Colors::TextSecondary);
-    categoryText.setPosition({50.f, 100.f});
+    categoryText = sf::Text(fontManager.getFont(FontManager::FontType::Bold));
+    categoryText.setCharacterSize(26);
+    categoryText.setFillColor(Colors::Yellow);
+    categoryText.setPosition({50.f, 80.f});
     
     // Pergunta
     questionText = sf::Text(fontManager.getFont(FontManager::FontType::Bold));
-    questionText.setCharacterSize(28);
+    questionText.setCharacterSize(26);
     questionText.setFillColor(Colors::TextPrimary);
-    questionText.setPosition({100.f, 180.f});
+    questionText.setPosition({50.f, 140.f});
     
     // Opções
     option1Text = sf::Text(fontManager.getFont(FontManager::FontType::Regular));
@@ -101,14 +143,14 @@ void QuizScene::setupUI() {
     resultText.setPosition({250.f, 300.f});
     
     // Boxes
-    questionBox.setSize(sf::Vector2f(800.f, 100.f));
-    questionBox.setPosition({100.f, 170.f});
+    questionBox.setSize(sf::Vector2f(900.f, 120.f));
+    questionBox.setPosition({50.f, 140.f});
     questionBox.setFillColor(sf::Color(20, 30, 50, 100));
     questionBox.setOutlineColor(Colors::Border);
     questionBox.setOutlineThickness(2.f);
     
-    categoryBox.setSize(sf::Vector2f(200.f, 40.f));
-    categoryBox.setPosition({50.f, 90.f});
+    categoryBox.setSize(sf::Vector2f(400.f, 50.f));
+    categoryBox.setPosition({50.f, 75.f});
     categoryBox.setFillColor(Colors::Navy);
     categoryBox.setOutlineColor(Colors::Border);
     categoryBox.setOutlineThickness(2.f);
@@ -246,7 +288,11 @@ void QuizScene::resetQuiz() {
     score = 0;
     showingFeedback = false;
     quizFinished = false;
-    updateDisplay();
+    if (!questions.empty()) {
+        updateDisplay();
+    } else {
+        std::cerr << "[QuizScene] ERRO: Nenhuma questão carregada!" << std::endl;
+    }
 }
 
 void QuizScene::render(sf::RenderWindow& window) {

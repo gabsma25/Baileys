@@ -2,6 +2,7 @@
 #define QUIZSCENE_HPP
 
 #include "Scenes/Scene.hpp"
+#include "Database/DatabaseManager.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
@@ -35,6 +36,9 @@ public:
     SceneType getType() const override { return SceneType::Quiz; }
     
 private:
+    // Database
+    Database::DatabaseManager db;
+    
     // Perguntas
     std::vector<Question> questions;
     int currentQuestion;

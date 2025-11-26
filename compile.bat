@@ -8,7 +8,7 @@ ECHO ========================================
 ECHO.
 
 :: Configurar PATH
-SET PATH=%PATH%;%CD%;%CD%\include;%CD%\include\box2d;C:\SFML-3.0.0;C:\SFML-3.0.0\include;C:\SFML-3.0.0\include\SFML-3.0.0;C:\SFML-3.0.0\bin;C:\SFML-3.0.0\lib;C:\mingw64\bin;C:\mingw64\x86_64-w64-mingw32\bin
+SET PATH=%PATH%;%CD%;%CD%\include;%CD%\include\box2d;C:\SFML-3.0.0;C:\SFML-3.0.0\include;C:\SFML-3.0.0\include\SFML-3.0.0;C:\SFML-3.0.0\bin;C:\SFML-3.0.0\lib;C:\mingw64\bin;C:\mingw64\x86_64-w64-mingw32\bin;C:\Program Files\PostgreSQL\16\bin
 
 :: Limpar compilacao anterior
 IF EXIST face-game.exe (
@@ -28,13 +28,17 @@ g++ -std=c++17 ^
     src/Scenes/QuizScene.cpp ^
     src/Scenes/FaceScene.cpp ^
     src/Utils/FontManager.cpp ^
+    src/Database/DatabaseManager.cpp ^
     -o face-game.exe ^
     -I include ^
     -I C:/SFML-3.0.0/include ^
+    -I C:/PROGRA~1/POSTGR~1/16/include ^
     -L C:/SFML-3.0.0/lib ^
+    -L C:/PROGRA~1/POSTGR~1/16/lib ^
     -lsfml-graphics ^
     -lsfml-window ^
     -lsfml-system ^
+    -lpq ^
     -O2 ^
     -Wall ^
     -Wextra

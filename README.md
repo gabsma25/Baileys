@@ -2,19 +2,27 @@
 
 ## 📋 Sobre o Projeto
 
-**FACE** é um jogo educacional híbrido que combina dois modos de jogo:
+**FACE** é um jogo educacional com integração PostgreSQL que combina dois modos de jogo:
 
 ### 🎯 Modo Quiz
-- Perguntas de múltipla escolha
+- Perguntas de múltipla escolha **carregadas do banco de dados PostgreSQL**
+- 10 questões aleatórias por partida
 - 4 opções de resposta
 - Controle via teclado (teclas 1-4)
-- Categorias variadas
+- Categorias: Geografia, Matemática, Ciências, História, Tecnologia, etc.
 
 ### 🔍 Modo Face (Dicas Progressivas)
 - Sistema de dicas reveladas progressivamente
 - Digitação livre da resposta
 - Pontuação baseada no número de dicas usadas
 - Quanto menos dicas, mais pontos!
+
+## 🗄️ Banco de Dados
+
+O jogo utiliza **PostgreSQL 16** para armazenar:
+- ✅ 61 questões ativas em 10 categorias
+- ✅ Sistema de aleatorização por sessão
+- ✅ Estrutura completa com questões e opções de resposta
 
 ---
 
@@ -57,19 +65,32 @@ face-game/
 
 ### Pré-requisitos
 
-✅ MinGW64 instalado em `C:/mingw64/`
-✅ SFML 3.0.0 instalado em `C:/SFML-3.0.0/`
+✅ MinGW64 instalado em `C:/mingw64/`  
+✅ SFML 3.0.0 instalado em `C:/SFML-3.0.0/`  
+✅ **PostgreSQL 16** instalado em `C:/Program Files/PostgreSQL/16/`  
+✅ Banco de dados `face_quiz_db` configurado (veja `database/DATABASE_SETUP.md`)  
 ✅ Visual Studio Code (opcional)
 
-### Método : Compilação Rápida 
+### Configuração do Banco de Dados
+
+1. Instale PostgreSQL 16
+2. Configure senha: `1234` para usuário `postgres`
+3. Execute o script SQL:
+```bash
+psql -U postgres -d face_quiz_db -f database/quiz_questions.sql
+```
+
+### Compilação Rápida 
 ```batch
 compile.bat
 ```
 
-O script:
-1. Configura o PATH automaticamente
-2. Compila todos os arquivos
-3. Cria `face-game.exe`
+O script automaticamente:
+1. Configura PATH do MinGW, SFML e PostgreSQL
+2. Compila todos os arquivos (incluindo DatabaseManager)
+3. Linka libpq (PostgreSQL C API)
+4. Cria `face-game.exe`
+5. Copia `libpq.dll` necessária
 4. Executa automaticamente se bem-sucedido
 
 ---

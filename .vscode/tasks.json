@@ -16,6 +16,7 @@
                 "${workspaceFolder}/src/Scenes/QuizScene.cpp",
                 "${workspaceFolder}/src/Scenes/FaceScene.cpp",
                 "${workspaceFolder}/src/Utils/FontManager.cpp",
+                "${workspaceFolder}/src/Database/DatabaseManager.cpp",
                 // Output
                 "-o",
                 "${workspaceFolder}/face-game.exe",
@@ -24,13 +25,18 @@
                 "${workspaceFolder}/include",
                 "-I",
                 "C:/SFML-3.0.0/include",
+                "-I",
+                "C:/Program Files/PostgreSQL/16/include",
                 // Library paths
                 "-L",
                 "C:/SFML-3.0.0/lib",
+                "-L",
+                "C:/Program Files/PostgreSQL/16/lib",
                 // Libraries
                 "-lsfml-graphics",
                 "-lsfml-window",
                 "-lsfml-system",
+                "-lpq",
                 // Optimization and warnings
                 "-O2",
                 "-Wall",
@@ -39,7 +45,7 @@
             "options": {
                 "cwd": "${workspaceFolder}",
                 "env": {
-                    "PATH": "C:/SFML-3.0.0/bin;C:/mingw64/bin;${env:PATH}"
+                    "PATH": "C:/SFML-3.0.0/bin;C:/mingw64/bin;C:/Program Files/PostgreSQL/16/bin;${env:PATH}"
                 }
             },
             "problemMatcher": [

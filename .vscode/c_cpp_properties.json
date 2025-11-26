@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/include", // Adição do diretório "include".
+                "${workspaceFolder}/include",
                 "C:/mingw64/include",
                 "C:/mingw64/x86_64-w64-mingw32/include",
                 "C:/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include",
@@ -12,7 +12,8 @@
                 "C:/SFML-3.0.0/include",
                 "C:/SFML-3.0.0/include/SFML",
                 "C:/SFML-3.0.0/bin",
-                "C:/SFML-3.0.0/lib"
+                "C:/SFML-3.0.0/lib",
+                "C:/Program Files/PostgreSQL/16/include"
             ],
             "defines": [
                 "_DEBUG",

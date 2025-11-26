@@ -8,17 +8,29 @@
  * Cria instância do jogo, inicializa e executa o loop principal.
  */
 int main() {
+    // Força flush imediato
+    std::cout.setf(std::ios::unitbuf);
+    std::cerr.setf(std::ios::unitbuf);
+    
+    std::cout << "[MAIN] >>> INICIO DO PROGRAMA <<<" << std::endl;
+    
     try {
+        std::cout << "[MAIN] Iniciando aplicacao..." << std::endl;
+        
         // Criar instância do jogo
+        std::cout << "[MAIN] Criando instancia do Game..." << std::endl;
         Game game;
+        std::cout << "[MAIN] Game criado com sucesso!" << std::endl;
         
         // Inicializar sistemas
+        std::cout << "[MAIN] Inicializando sistemas..." << std::endl;
         if (!game.initialize()) {
-            std::cerr << "ERRO: Falha na inicializacao do jogo!" << std::endl;
+            std::cerr << "[MAIN] ERRO: Falha na inicializacao do jogo!" << std::endl;
             std::cerr << "Pressione Enter para sair..." << std::endl;
             std::cin.get();
             return -1;
         }
+        std::cout << "[MAIN] Inicializacao completa!" << std::endl;
         
         // Executar loop principal
         game.run();
